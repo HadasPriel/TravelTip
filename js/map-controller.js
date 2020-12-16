@@ -1,5 +1,4 @@
-
-import {locationService} from './services/location-service.js'
+import { locationService } from './services/location-service.js'
 
 
 console.log('locationService', locationService);
@@ -25,6 +24,7 @@ window.onload = () => {
         console.log('Aha!', ev.target);
         panTo(35.6895, 139.6917);
     })
+
 }
 
 
@@ -35,12 +35,22 @@ export function initMap(lat = 32.0749831, lng = 34.9120554) {
             console.log('google available');
             gGoogleMap = new google.maps.Map(
                 document.querySelector('#map'), {
-                center: { lat, lng },
-                zoom: 15
-            })
+                    center: { lat, lng },
+                    zoom: 15
+                })
             console.log('Map!', gGoogleMap);
+
+            gGoogleMap.addListener('click', (event) => {
+                console.log(event);
+                let lat = event.latLng.lat()
+                let lng = event.latLng.lng()
+                var locationName = prompt('Enter location name')
+                locationService.addLocation(locationName, lat, lng)
+            })
         })
+
 }
+
 
 function addMarker(loc) {
     var marker = new google.maps.Marker({
@@ -77,6 +87,3 @@ function _connectGoogleApi() {
         elGoogleApi.onerror = () => reject('Google script failed to load')
     })
 }
-
-
-
