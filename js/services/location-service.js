@@ -2,7 +2,8 @@ import { utilService } from './utils-service.js'
 
 export const locationService = {
     getLocations,
-    addLocation
+    addLocation,
+    getCoords
 }
 
 const KEY = 'locationsKey'
@@ -54,11 +55,14 @@ function addLocation(name, lat, lng) {
 }
 
 function getAddress(lat, lng) {
-    const apiKey = 'AIzaSyBkivdGw_HONk9SDFkerAxVkjzJ1V2Ntl4'
+    const apiKey = ''
     const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`
     return axios.get(url)
         .then(res => res.data)
-        .then(data => data.results[0].formatted_address)
+        
+        .then(data => {
+            console.log(data)
+          return  data.results[0].formatted_address})
 
 }
 
@@ -70,4 +74,17 @@ function getWeather(lat, lng) {
     return axios.get(url)
         .then(res => res.data)
 
+} 
+
+
+function getCoords(address){
+    let searchAddress = address.split(' ').join('+')
+    const apiKey = ''
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${searchAddress}&key=${apiKey}`
+    return axios.get(url)
+        .then(res => res.data)
+        
+        .then(data => {
+            console.log(data.results[0].geometry.location)
+          return  data.results[0].geometry.location}) 
 }

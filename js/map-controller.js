@@ -15,6 +15,7 @@ window.onload = () => {
     getUserPosition()
         .then(pos => {
             console.log('User position is:', pos.coords);
+            panTo(pos.coords.latitude, pos.coords.longitude)
         })
         .catch(err => {
             console.log('err!!!', err);
@@ -24,6 +25,28 @@ window.onload = () => {
         console.log('Aha!', ev.target);
         panTo(35.6895, 139.6917);
     })
+
+    document.querySelector('.btn-go-to-location').addEventListener('click', (ev) => {
+        
+        const userPos = document.querySelector('.user-input').value
+        locationService.getCoords(userPos)
+            .then(data => panTo(data.lat, data.lng))
+    })
+
+
+    document.querySelector('.btn-go-to-my-location').addEventListener('click', () => {
+        
+        getUserPosition()
+        .then(pos => {
+            console.log('User position is:', pos.coords);
+            panTo(pos.coords.latitude, pos.coords.longitude)
+        })
+        .catch(err => {
+            console.log('err!!!', err);
+        })
+     
+    })
+
 
 }
 
@@ -35,9 +58,9 @@ export function initMap(lat = 32.0749831, lng = 34.9120554) {
             console.log('google available');
             gGoogleMap = new google.maps.Map(
                 document.querySelector('#map'), {
-                    center: { lat, lng },
-                    zoom: 15
-                })
+                center: { lat, lng },
+                zoom: 15
+            })
             console.log('Map!', gGoogleMap);
 
             gGoogleMap.addListener('click', (event) => {
