@@ -1,0 +1,70 @@
+*{
+    box-sizing: border-box;
+}
+
+html{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+button{
+    width:100px;
+}
+
+.table-cell{
+    border: 1px solid lightgray;
+}
+
+.main-layout{
+    width: 1060px;
+    margin: 0 auto;
+    background-color: #AA98A9;
+}
+
+
+.main-nav h4{
+ flex-grow: 1;
+}
+
+.user-management{
+  width: fit-content;
+}
+
+.main-container{
+    
+    padding: 10px;
+}
+
+
+
+.location-details {
+    flex-direction: column; 
+    width:50%; 
+}
+
+.location-details.weather{
+    background-color: white;
+}
+
+.location-details.user-places{
+    background-color: white;
+}
+
+.map-container{
+    width:50%; 
+}
+
+
+
+.flex{
+    display: flex;
+}
+
+.flex.align-center {
+    align-items: center;
+}
+
+.flex.space-between {
+    justify-content: space-between;
+}
+
+

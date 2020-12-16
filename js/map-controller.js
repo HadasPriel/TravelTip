@@ -1,7 +1,7 @@
 import { locationService } from './services/location-service.js'
 
 
-console.log('locationService', locationService);
+// console.log('locationService', locationService);
 
 var gGoogleMap;
 
@@ -46,7 +46,8 @@ window.onload = () => {
         })
      
     })
-
+    
+    
 
 }
 
@@ -69,6 +70,8 @@ export function initMap(lat = 32.0749831, lng = 34.9120554) {
                 let lng = event.latLng.lng()
                 var locationName = prompt('Enter location name')
                 locationService.addLocation(locationName, lat, lng)
+               
+                renderUserPlaces()
             })
         })
 
@@ -108,5 +111,26 @@ function _connectGoogleApi() {
     return new Promise((resolve, reject) => {
         elGoogleApi.onload = resolve;
         elGoogleApi.onerror = () => reject('Google script failed to load')
+    })
+}
+
+
+function renderUserPlaces(){
+    locationService.getLocations()
+    .then(locations =>{
+        if(locations.length===0) return
+        document.querySelector('.user-places').hidden=false
+        let strHTMLs = locations.map((location)=>{
+            return `
+            <tr>
+                <td class="table-cell">${location.name}</td>
+                <td class="table-cell">${location.createdAt}</td>
+                <td class="table-cell">${location.address}</td>
+                <td class="table-cell"> <button  class="goTo-btn" onclick="onGoToPlace(${location.lat},${location.lng})"> Go there </button> 
+                 <button  class="delete-btn" onclick="onDeletePlace('${location.id}')"> Delete </button> </td>
+            </tr>
+        `
+        })
+        document.querySelector('.user-locations').innerHTML = strHTMLs.join('')
     })
 }
