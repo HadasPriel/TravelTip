@@ -59,7 +59,7 @@ function addLocation(name, lat, lng) {
 }
 
 function getAddress(lat, lng) {
-    const apiKey = 'AIzaSyCuux99t7oaSByMfS8aqcymt_TZuBWYda0'
+    const apiKey = ''
     const url = `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${apiKey}`
     return axios.get(url)
         .then(res => res.data)
@@ -84,7 +84,7 @@ function getWeather(lat, lng) {
 
 function getCoords(address) {
     let searchAddress = address.split(' ').join('+')
-    const apiKey = 'AIzaSyCuux99t7oaSByMfS8aqcymt_TZuBWYda0'
+    const apiKey = ''
     const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${searchAddress}&key=${apiKey}`
     return axios.get(url)
         .then(res => res.data)
